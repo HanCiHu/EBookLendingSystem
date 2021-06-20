@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<link rel="stylesheet" href="./sign.css" type="text/css">
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+		<div>
+			이름 : <input type="text" id="name"><br><br>
+			이메일 : <input type="text" id="email"><br><br>
+			비밀번호 : <input type="password" id="password"> <br><br>
+			비밀번호 확인 : <input type="password" id="pw_check"> <br><br>
+			<button onclick="signUp()">회원 가입</button>
+			<button onclick="location.href='signIn.html'">로그인 화면으로</button>
+		</div>	
+	</body>
+</html>
+
+<script>
+	function signUp(){
+		if ($('#password').val() != $('#pw_check').val()){
+			alert("비밀번호를 확인해주세요.");
+			return ;
+		}
+
+	$.ajax({
+		url:'signUp.php',
+		type:'post',
+		data: {
+			name: $('#name').val(),
+			email: $('#email').val(),
+			pw: $('#pw').val()
+		}
+	}).done(function(data) {
+		if (data == "DENY"){
+			alert("중복된 이메일이 존재합니다.");
+		}
+		else{
+			alert("회원가입 완료");
+			location.href="./signIn.html";
+			alert(data);
+		}
+		
+	});
+}
+</script>
