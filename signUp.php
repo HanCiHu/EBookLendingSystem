@@ -1,28 +1,36 @@
 <?php
-$email = $_POST['email'];
+$email = strtoupper($_POST['email']);
 
 $dbuser="D201902721";
 $dbpass="hancihu0079";
 $conn = oci_connect($dbuser,$dbpass,'localhost/XE','AL32UTF8');
 
-$query = 'select email from CUSTOMER';
+$query = 'select cno, email from CUSTOMER';
 $stmt = oci_parse($conn, $query);
 oci_execute($stmt);
 
+$cno = 0;
 while($row = oci_fetch_assoc($stmt))
 {
+	$cno = $row['CNO'] + 1;
 	if ($row['EMAIL'] == $email){
 		echo "DENY";
 		exit;
 	}
 }
 
-$query = 'select name from CUSTOMER';
+$name = $_POST['name'];
+$pw = $_POST['pw'];
+
+$query = "insert into customer values(${cno}, '${name}', '${pw}','${email}')";
 $stmt = oci_parse($conn, $query);
+
 oci_execute($stmt);
 
-while($row = oci_fetch_assoc($stmt))
-{
-	echo $row['NAME'];
-}
+echo $query;
+// 오라클 접속 닫기 
+oci_free_statement($stmt);
+
+// 오라클에서 로그아웃 
+oci_close($conn); 
 ?>
