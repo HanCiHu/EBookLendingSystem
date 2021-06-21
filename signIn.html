@@ -20,12 +20,17 @@ function signIn(){
 		url:'./signIn.php',
 		type:'post',
 		data: {
-			id: $('#email').val(),
-			pw: $('#pw').val()
+			email: $('#email').val(),
+			pw: $('#password').val()
 		}
 	}).done(function(data) {
-		alert("로그인 완료");
-		location.href="./board.php";
+		if (data == "ACCESS"){
+			alert("로그인 완료");
+			location.href="./board.php";
+		}
+		else if (data == "DENY"){
+			alert("아이디 또는 비밀번호가 틀립니다.");
+		}
 	});
 }
 </script>
