@@ -1,5 +1,5 @@
 <?php
-$email = strtoupper($_POST['email']);
+$email = $_POST['email'];
 
 $dbuser="D201902721";
 $dbpass="hancihu0079";
@@ -27,8 +27,7 @@ $stmt = oci_parse($conn, $query);
 
 oci_execute($stmt);
 
-echo $query;
-// 오라클 접속 닫기 
+// 오라클 접속 닫기
 oci_free_statement($stmt);
 
 // 오라클에서 로그아웃 
