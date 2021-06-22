@@ -3,13 +3,13 @@
 mode 1 : 예약이 가능한지 확인
 mode 2 : 해당 도서 예약
 */
+session_start();
 
 $dbuser="D201902721";
 $dbpass="hancihu0079";
 $conn = oci_connect($dbuser,$dbpass,'localhost/XE','AL32UTF8');
 
-$isbn = $_POST['ISBN'];
-$cno = $_POST['cno'];
+$cno = $_SESSION['cno'];
 
 if ($_POST['mode'] == 1){
 
@@ -32,6 +32,7 @@ if ($_POST['mode'] == 1){
 }
 
 else if($_POST['mode'] == 2){
+	$isbn = $_POST['ISBN'];
 	$query = "insert into reserve values(${isbn},${cno},TO_DATE(SYSDATE,'YYYY/MM/DD'))";
 	$stmt = oci_parse($conn, $query);
 	oci_execute($stmt);
