@@ -38,12 +38,12 @@ function EbookList($mode){
     echo "<th>".$row['YEAR']."</th>";
     echo "<th><a href='EbookInfo.php'>상세정보</a></th>";
     if ($row['CNO'] == Null){
-      echo "<th><button class='btn btn-dark'>대출</button></th>";
+      echo "<th><button class='btn btn-dark' onclick='lendingEbook(".$row['ISBN'].")'>대출</button></th>";
     }
     else{
       echo "<th><button class='btn btn-dark' disabled>대출</button></th>";
     }
-    echo "<th><button class='btn btn-dark'>예약</button></th>";
+    echo "<th><button class='btn btn-dark' onclick='reservingEbook(".$row['ISBN'].")'>예약</button></th>";
     echo "</tr>";
   }
   oci_free_statement($stmt);
