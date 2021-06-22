@@ -1,6 +1,6 @@
 //데이터 베이스에 Ebook 추가(관리자인 경우만 가능)
 function addEbook(){
-	
+	window.open('addEbook.html', '_blank', 'width=400px,height=500px, toolbars=no');
 }
 
 //책 대출

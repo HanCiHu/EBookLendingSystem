@@ -91,7 +91,7 @@ function EbookList($mode){
               </div>
               </th>
               <!-- 관리자인 경우 활성화--> 
-              <th><button id="addButton" class="btn btn-default" onclick="location.href='addEbook.php'" disabled>+</button></th>
+              <th><button id="addButton" class="btn btn-default" onclick="addEbook()" disabled>+</button></th>
               <?php if ($_SESSION['cno'] == 0 && $_SESSION['name'] == 'Admin'){
                 echo "<script>$('#addButton').prop('disabled', false);</script>";
               }
