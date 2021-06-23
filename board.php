@@ -62,10 +62,10 @@ function EbookList(){
 				<p>
           <!-- 이름, 마이페이지, 로그아웃-->
 					<span><?php echo $_SESSION['name']."님 환영합니다."; ?></span>
-          <span><a id="myPage-btn" class="btn btn-dark" href="./myPage.html">마이 페이지</a></span>
+          <span><a id="myPage-btn" class="btn btn-dark" href="./myPage.php">마이 페이지</a></span>
           <?php
           if ($_SESSION['cno'] == 0 && $_SESSION['name'] == 'Admin'){
-            echo "<script>$('#myPage-btn').attr('href','./AdminPage.html');
+            echo "<script>$('#myPage-btn').attr('href','./AdminPage.php');
            document.getElementById('myPage-btn').innerText = '관리자 페이지';</script>";
           }
           ?>
