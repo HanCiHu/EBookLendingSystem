@@ -51,6 +51,8 @@ function reservingBookList(){
 		echo "<th><button class='btn btn-dark' onclick='deleteReserve(".$row['ISBN'].")'>취소</button></th>";
 		echo "</tr>";
 	}
+	oci_free_statement($stmt);
+	oci_close($conn); 
 }
 ?>
 
