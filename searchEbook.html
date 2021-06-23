@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<link rel="stylesheet" href="./sign.css" type="text/css">
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+		<h3>검색</h3>
+		제목 : <input type="text" id="title"><br><br>
+		출판사 : <input type="text" id="publisher"><br><br>
+		출판연도 : <input type="text" id="Minyear" style="width: 100px;"> ~ <input type="text" id="Maxyear" style="width: 100px;"><br><br>
+		저자 : <input id="Author" type="text"><br><br>
+		<button onclick="searchEbook()">검색</button>
+		<button onclick="window.close();">취소</button>
+	</body>
+</html>
+
+<script>
+	function searchEbook(){
+		$.ajax({
+			url:'searchEbook.php',
+			type : 'post',
+			data : {
+				title : $('#title').val(),
+				publisher : $('#publisher').val(),
+				minYear : $('#minYear').val(),
+				maxYear : $('#maxYear').val(),
+				author : $('#Author').val()
+			}
+		}).done(function(data){
+			opener.document.location.reload();
+			self.close();
+		});
+	}
+</script>
