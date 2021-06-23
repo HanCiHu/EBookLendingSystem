@@ -36,7 +36,7 @@ function EbookList($mode){
     echo "<th>".$row['TITLE']."</th>";
     echo "<th>".$row['PUBLISHER']."</th>";
     echo "<th>".$row['YEAR']."</th>";
-    echo "<th><a href='EbookInfo.php'>상세정보</a></th>";
+    echo "<th><a onclick='setISBN(".$row['ISBN'].")'>상세정보</a></th>";
     if ($row['CNO'] == Null){
       echo "<th><button class='btn btn-dark' onclick='lendingEbook(".$row['ISBN'].")'>대출</button></th>";
     }
@@ -64,9 +64,14 @@ function EbookList($mode){
 				<p>
           <!-- 이름, 마이페이지, 로그아웃-->
 					<span><?php echo $_SESSION['name']."님 환영합니다."; ?></span>
-          <span id="myPage-btn"><a class="btn btn-dark" href="./signIn.html">마이 페이지</a></span>
+          <span><a id="myPage-btn" class="btn btn-dark" href="./myPage.html">마이 페이지</a></span>
+          <?php
+          if ($_SESSION['cno'] == 0 && $_SESSION['name'] == 'Admin'){
+            echo "<script>$('#myPage-btn').attr('href','./AdminPage.html');
+           document.getElementById('myPage-btn').innerText = '관리자 페이지';</script>";
+          }
+          ?>
 					<span id="sign-btn"><a class="btn btn-dark" onclick="logout()">로그아웃</a></span>
-         
 				</p>
 			</div>
 
@@ -78,7 +83,7 @@ function EbookList($mode){
 							<th>제목</th>
 							<th>출판사</th>
 							<th>출판연도</th>
-              <th colspan='2'>
+              <th>
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">정렬 ▼</button>
                 <div class="dropdown-menu">
@@ -90,7 +95,8 @@ function EbookList($mode){
                 </div>
               </div>
               </th>
-              <!-- 관리자인 경우 활성화--> 
+              <th>검색🔍</th>
+              <!-- 관리자인 경우 활성화-->
               <th><button id="addButton" class="btn btn-default" onclick="addEbook()" disabled>+</button></th>
               <?php if ($_SESSION['cno'] == 0 && $_SESSION['name'] == 'Admin'){
                 echo "<script>$('#addButton').prop('disabled', false);</script>";
