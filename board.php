@@ -30,18 +30,18 @@ function EbookList(){
 
   while ($row = oci_fetch_assoc($stmt)){
     echo "<tr>";
-    echo "<th>".$row['ISBN']."</th>";
-    echo "<th>".$row['TITLE']."</th>";
-    echo "<th>".$row['PUBLISHER']."</th>";
-    echo "<th>".$row['YEAR']."</th>";
-    echo "<th><a onclick='setISBN(".$row['ISBN'].")'>상세정보</a></th>";
+    echo "<td>".$row['ISBN']."</td>";
+    echo "<td>".$row['TITLE']."</td>";
+    echo "<td>".$row['PUBLISHER']."</td>";
+    echo "<td>".$row['YEAR']."</td>";
+    echo "<td><a onclick='setISBN(".$row['ISBN'].")'>상세정보</a></td>";
     if ($row['CNO'] == Null){
-      echo "<th><button class='btn btn-dark' onclick='lendingEbook(".$row['ISBN'].")'>대출</button></th>";
+      echo "<td><button class='btn btn-dark' onclick='lendingEbook(".$row['ISBN'].")'>대출</button></td>";
     }
     else{
-      echo "<th><button class='btn btn-dark' disabled>대출</button></th>";
+      echo "<td><button class='btn btn-dark' disabled>대출</button></td>";
     }
-    echo "<th><button class='btn btn-dark' onclick='reservingEbook(".$row['ISBN'].")'>예약</button></th>";
+    echo "<td><button class='btn btn-dark' onclick='reservingEbook(".$row['ISBN'].")'>예약</button></td>";
     echo "</tr>";
   }
   oci_free_statement($stmt);
