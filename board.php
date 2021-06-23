@@ -10,9 +10,21 @@ function EbookList(){
   $dbuser="D201902721";
   $dbpass="hancihu0079";
   $conn = oci_connect($dbuser,$dbpass,'localhost/XE','AL32UTF8');
-  $query = 'select isbn, title, publisher, year, cno from EBOOK ';
+  $query = 'select isbn, title, publisher, year, cno from EBOOK where 1=1 ';
+
+  if (($search_title = $_SESSION['search_title']) != ''){
+    $query .= "and title like '%${search_title}%' ";
+  }
+  if (($search_publisher =	$_SESSION['search_publisher']) != ''){
+    $query .= "and publisher like '%${search_publisher}%' ";
+  }
+  if (($search_minYear =	$_SESSION['search_minYear']) != ''){
+    $query .= "and year >= ${search_minYear} ";
+  }
+  if (($search_maxYear =	$_SESSION['search_maxYear']) != ''){
+    $query .= "and year <= ${search_maxYear} ";
+  }
   $query .= "order by ".$_SESSION['order'];
-  
   $stmt = oci_parse($conn,$query);
   oci_execute($stmt);
 

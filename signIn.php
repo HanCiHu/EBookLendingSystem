@@ -18,6 +18,12 @@ while($row = oci_fetch_assoc($stmt))
 		$_SESSION['cno'] = $row['CNO'];
 		$_SESSION['name'] = $row['NAME'];
 		$_SESSION['order'] = 'ISBN'; //EbookList 정렬 default 값
+		
+		//검색 세션변수 초기화
+		$_SESSION['search_title'] = '';
+		$_SESSION['search_publisher'] ='';
+		$_SESSION['search_minYear'] = '';
+		$_SESSION['search_maxYear'] = '';
 		echo "ACCESS";
 		exit;
 	}
