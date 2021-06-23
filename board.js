@@ -57,7 +57,7 @@ function reservingEbook(ISBN){
 		}
 	}).done(function(data){
 		if (data == "OK"){
-			var flag = confirm("현재 예약이 가능합니다.\n예약하시겠습니까?");
+			var flag = confirm("예약이 가능합니다.\n예약하시겠습니까?");
 			if (flag){
 				$.ajax({
 					url : 'reservingEbook.php',
@@ -117,6 +117,29 @@ function EbookSort(order){
 			order : order
 		}
 	}).done(function(data) {
+		location.reload();
+	});
+}
+
+//반납 기간 연장
+function renewEbook(){
+
+}
+
+//예약 취소
+function deleteReserve(){
+
+}
+
+//통계
+function setStatisticsMode(mode){
+	$.ajax({
+		url : 'setStatisticsMode.php',
+		type : 'post',
+		data:{
+			mode : mode
+		}
+	}).done(function(data){
 		location.reload();
 	});
 }
