@@ -80,6 +80,18 @@ function reservingEbook(ISBN){
 	});
 }
 
+function setISBN(isbn){
+	$.ajax({
+		url : 'setEbookInfo.php',
+		type: 'post',
+		data :{
+			isbn :isbn
+		}
+	}).done(function(){
+		window.open('EbookInfo.php', '_blank', 'width=400px,height=500px, toolbars=no');
+	});
+}
+
 function logout(){
 	$.ajax({
 		url:'logout.php',
