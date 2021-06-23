@@ -6,26 +6,12 @@ if ((!isset($_SESSION['cno'])) || ($_SESSION['cno'] == -1)){
   echo "<script>location.href = './signIn.html';</script>";
 }
 
-function EbookList($mode){
+function EbookList(){
   $dbuser="D201902721";
   $dbpass="hancihu0079";
   $conn = oci_connect($dbuser,$dbpass,'localhost/XE','AL32UTF8');
-  $query = '';
-  if ($mode == 1){
-    $query = 'select isbn, title, publisher, year, cno from EBOOK order by ISBN';
-  }
-  else if ($mode == 2){
-    $query = 'select isbn, title, publisher, year, cno from EBOOK order by TITLE';
-  }
-  else if ($mode == 3){
-    $query = 'select isbn, title, publisher, year, cno from EBOOK order by PUBLISHER';
-  }
-  else if ($mode == 4){
-    $query = 'select isbn, title, publisher, year, cno from EBOOK order by YEAR';
-  }
-  else if ($mode == 5){
-    $query = 'select isbn, title, publisher, year, cno from EBOOK order by CNO desc, ISBN';
-  }
+  $query = 'select isbn, title, publisher, year, cno from EBOOK ';
+  $query .= "order by ".$_SESSION['order'];
   
   $stmt = oci_parse($conn,$query);
   oci_execute($stmt);
@@ -87,15 +73,16 @@ function EbookList($mode){
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">정렬 ▼</button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" onclick="EbookSort(1)">ISBN</a><br>
-                  <a class="dropdown-item" onclick="EbookSort(2)">책 제목</a><br>
-                  <a class="dropdown-item" onclick="EbookSort(3)">출판사</a><br>
-                  <a class="dropdown-item" onclick="EbookSort(4)">출판 연도</a><br>
-                  <a class="dropdown-item" onclick="EbookSort(5)">대출 가능</a>
+                  <a class="dropdown-item" onclick="EbookSort('ISBN')">ISBN</a><br>
+                  <a class="dropdown-item" onclick="EbookSort('title')">책 제목</a><br>
+                  <a class="dropdown-item" onclick="EbookSort('publisher')">출판사</a><br>
+                  <a class="dropdown-item" onclick="EbookSort('year')">출판 연도</a><br>
+                  <a class="dropdown-item" onclick="EbookSort('cno desc, isbn')">대출 가능</a>
                 </div>
               </div>
               </th>
-              <th>검색🔍</th>
+              <th><button class="btn btn-default" onclick="searchEbook()">검색🔍</button></th>
+
               <!-- 관리자인 경우 활성화-->
               <th><button id="addButton" class="btn btn-default" onclick="addEbook()" disabled>+</button></th>
               <?php if ($_SESSION['cno'] == 0 && $_SESSION['name'] == 'Admin'){
@@ -106,7 +93,7 @@ function EbookList($mode){
 					</thead>
 
 				  <tbody id="EbookList">
-            <?php EbookList($_SESSION['mode']); ?>
+            <?php EbookList(); ?>
 			  	</tbody>
 		  	</table>
 			</div>

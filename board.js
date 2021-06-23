@@ -3,7 +3,12 @@ function addEbook(){
 	window.open('addEbook.html', '_blank', 'width=400px,height=500px, toolbars=no');
 }
 
-//책 대출
+//도서 검색 팝업창
+function searchEbook(){
+	window.open('searchEbook.html', '_blank', 'width=500px,height=300px, toolbars=no');
+}
+
+//도서 대출
 function lendingEbook(isbn){
 	$.ajax({
 		url:'lendingEbook.php',
@@ -80,6 +85,7 @@ function reservingEbook(ISBN){
 	});
 }
 
+//상세정보를 보려고 하는 도서의 isbn 세션에 저장
 function setISBN(isbn){
 	$.ajax({
 		url : 'setEbookInfo.php',
@@ -103,12 +109,12 @@ function logout(){
 }
 
 //mode에 따라 Ebook리스트를 정렬
-function EbookSort(mode){
+function EbookSort(order){
 	$.ajax({
 		url:'EbookSortMode.php',
 		type:'post',
 		data: {
-			mode : mode
+			order : order
 		}
 	}).done(function(data) {
 		location.reload();

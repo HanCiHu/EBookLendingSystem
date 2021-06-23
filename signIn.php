@@ -17,7 +17,7 @@ while($row = oci_fetch_assoc($stmt))
 		session_start();
 		$_SESSION['cno'] = $row['CNO'];
 		$_SESSION['name'] = $row['NAME'];
-		$_SESSION['mode'] = 1; //EbookList 정렬 default 값
+		$_SESSION['order'] = 'ISBN'; //EbookList 정렬 default 값
 		echo "ACCESS";
 		exit;
 	}
