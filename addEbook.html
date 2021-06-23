@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<link rel="stylesheet" href="./sign.css" type="text/css">
+		<meta charset="utf-8"/>
+	</head>
+	<body>
+		제목 : <input type="text" id="title"><br><br>
+		출판사 : <input type="text" id="publisher"><br><br>
+		출판연도 : <input type="text" id="year"><br><br>
+		저자 : <input class="Authors" type="text" value="">
+		<button onclick="addAuthors()">+</button><br><br>
+		<a class="Author"></a>
+		<button onclick="addEbook()">추가</button>
+		<button onclick="window.close();">취소</button>
+	</body>
+</html>
+<script>
+	function addAuthors(){
+		$('.Author').append("저자 : <input class='Authors' type='text' value=''><br><br>");
+	}
+
+	function addEbook(){
+		var arr = document.querySelectorAll('.Authors');
+		var authors = new Array();
+		for (var i = 0; i < arr.length; i++){
+			authors.push(arr[i].value);
+		}
+		
+		$.ajax({
+			url : 'addEbook.php',
+			type : 'post',
+			data:{
+				title : $('#title').val(),
+				publisher: $('#publisher').val(),
+				year : $('#year').val(),
+				authors : authors
+			}
+		}).done(function(data){
+			if (data == "OK"){
+				alert("도서 추가가 완료되었습니다.");
+				window.close();
+			}
+			else{
+				alert(data);
+
+				alert("Server Error");
+			}
+		});
+	}
+</script>
