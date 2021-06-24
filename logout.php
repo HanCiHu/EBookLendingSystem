@@ -48,8 +48,9 @@ for ($i = 0; $i < count($rentalData); $i++){
 
 	$row = oci_fetch_assoc($stmt);
 	$email = $row['EMAIL'];
-
-	echo "전송 이메일 : ".$email."<br>";
+	if ($email != ''){
+		echo $email;
+	}
 }
 
 //insert data to previousRental table

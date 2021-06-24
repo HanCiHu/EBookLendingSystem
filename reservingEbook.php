@@ -30,16 +30,13 @@ if ($_POST['mode'] == 1){
 		}
 	}
 }
-
 else if($_POST['mode'] == 2){
 	$isbn = $_POST['ISBN'];
 	$query = "insert into reserve values(${isbn},${cno},TO_DATE(SYSDATE,'YYYY/MM/DD'))";
 	$stmt = oci_parse($conn, $query);
 	oci_execute($stmt);
 }
-
 oci_free_statement($stmt);
 oci_close($conn);
-
 echo "OK";
 ?>
