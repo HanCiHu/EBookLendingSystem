@@ -1,14 +1,14 @@
-//데이터 베이스에 Ebook 추가(관리자인 경우만 가능)
+//데이터 베이스에 Ebook 추가(관리자인 경우만 가능) : board.js
 function addEbook(){
 	window.open('addEbook.html', '_blank', 'width=400px,height=500px, toolbars=no');
 }
 
-//도서 검색 팝업창
+//도서 검색 팝업창 : board.js
 function searchEbook(){
 	window.open('searchEbook.html', '_blank', 'width=500px,height=300px, toolbars=no');
 }
 
-//도서 대출
+//도서 대출 : board.js
 function lendingEbook(isbn){
 	$.ajax({
 		url:'lendingEbook.php',
@@ -47,7 +47,7 @@ function lendingEbook(isbn){
 	});
 }
 
-//책 예약
+//책 예약 : board.js
 function reservingEbook(ISBN){
 	$.ajax({
 		url:'reservingEbook.php',
@@ -85,7 +85,7 @@ function reservingEbook(ISBN){
 	});
 }
 
-//상세정보를 보려고 하는 도서의 isbn 세션에 저장
+//상세정보를 보려고 하는 도서의 isbn 세션에 저장 : board.js
 function setISBN(isbn){
 	$.ajax({
 		url : 'setEbookInfo.php',
@@ -108,7 +108,7 @@ function logout(){
 	});
 }
 
-//mode에 따라 Ebook리스트를 정렬
+//mode에 따라 Ebook리스트를 정렬 : board.js
 function EbookSort(order){
 	$.ajax({
 		url:'EbookSortMode.php',
@@ -121,17 +121,38 @@ function EbookSort(order){
 	});
 }
 
-//반납 기간 연장
+//반납 기간 연장 : myPage.php
 function renewEbook(){
 
 }
 
-//예약 취소
-function deleteReserve(){
-
+//예약 취소 : myPage.php
+function deleteReserve(isbn){
+	let flag = confirm("예약을 취소하시겠습니까?");
+	if (flag){
+		$.ajax({
+			url:'deleteReserve.php',
+			type:'post',
+			data:{
+				isbn : isbn
+			}
+		}).done(function(data){
+			if (data == "OK"){
+				alert("예약이 취소되었습니다.");
+				location.reload();
+			}
+			else{
+				alert("Server Error");
+			}
+		});
+	}
+	else{
+		alert("취소되었습니다.");
+	}
+	
 }
 
-//통계
+//통계 : AdminPage.php
 function setStatisticsMode(mode){
 	$.ajax({
 		url : 'setStatisticsMode.php',
