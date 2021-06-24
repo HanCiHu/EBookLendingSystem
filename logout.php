@@ -19,8 +19,8 @@ $cno = $_SESSION['cno'];
 $dbuser="D201902721";
 $dbpass="hancihu0079";
 $conn = oci_connect($dbuser,$dbpass,'localhost/XE','AL32UTF8');
-//date 비교 연산 이슈
-$query = "select isbn, cno, daterented, datedue from ebook where cno=${cno} and TO_CHAR(datedue) <= TO_CHAR(SYSDATE, 'YYMMDD')";
+
+$query = "select isbn, cno, daterented, datedue from ebook where cno=${cno} and TO_CHAR(datedue,'YYMMDD') <= TO_CHAR(SYSDATE, 'YYMMDD')";
 $stmt = oci_parse($conn, $query);
 oci_execute($stmt);
 
