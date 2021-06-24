@@ -15,18 +15,21 @@ function makestatistics(){
 		return ;
 	}
 	if ($_SESSION['statistics'] == 1){
-		$query = "SELECT E.ISBN, E.TITLE, C.NAME, C.EMAIL FROM EBOOK E, CUSTOMER C WHERE E.CNO IS NOT NULL AND E.CNO = C.CNO ORDER BY ISBN";
-		echo "<thread><tr><th>ISBN</th><th>제목</th><th>이름</th><th>이메일</th></tr></thread>";
-		array_push($columnName,"ISBN","TITLE","NAME","EMAIL");
+		echo"<script>$('#statisticsName').text('현재 대출 중인 도서 정보')</script>";
+		$query = "SELECT E.ISBN, E.TITLE, C.NAME, C.EMAIL, C.CNO FROM EBOOK E, CUSTOMER C WHERE E.CNO IS NOT NULL AND E.CNO = C.CNO ORDER BY ISBN";
+		echo "<thread><tr><th>ISBN</th><th>제목</th><th>회원 번호</th><th>회원 이름</th><th>이메일</th></tr></thread>";
+		array_push($columnName,"ISBN","TITLE","CNO","NAME","EMAIL");
 	}
 	else if ($_SESSION['statistics'] == 2){
+		echo"<script>$('#statisticsName').text('도서별 대출 횟수 통계')</script>";
 		$query = "SELECT P.C, E.* FROM EBOOK E, (SELECT ISBN, COUNT(*) C FROM PREVIOUSRENTAL GROUP BY ISBN) P WHERE P.ISBN = E.ISBN ORDER BY 1 DESC";
 		echo "<thread><tr><th>ISBN</th><th>제목</th><th>출판사</th><th>출판연도</th><th>대출횟수</th></tr></thread>";
 		array_push($columnName,"ISBN","TITLE","PUBLISHER","YEAR","C");
 	}
 	else if ($_SESSION['statistics'] == 3){
+		echo"<script>$('#statisticsName').text('회원별 대출 도서 확인')</script>";
 		$query = "SELECT CNO, ISBN, TITLE, COUNT(*) OVER (PARTITION BY CNO) AS TOTAL_COUNT FROM EBOOK ORDER BY (CASE WHEN CNO IS NULL THEN 0 ELSE TOTAL_COUNT END) DESC";
-		echo "<thread><tr><th>CNO</th><th>ISBN</th><th>도서제목</th><th>대여권수</th></tr></thread>";
+		echo "<thread><tr><th>회원 번호</th><th>ISBN</th><th>도서제목</th><th>대여권수</th></tr></thread>";
 		array_push($columnName,"CNO","ISBN","TITLE","TOTAL_COUNT");
 	}
 	echo "<tbody>";
@@ -66,7 +69,7 @@ function makestatistics(){
 		</div>
 
 		<div class="row">
-			<h3>통계 선택</h3>
+			<h2>통계 선택</h2>
         	<table class="table table-hover">
 				<thead>
 					<tr>
@@ -79,7 +82,7 @@ function makestatistics(){
 		</div>
 
 		<div class="row">
-			<h2></h2>
+			<h3 id='statisticsName'></h3>
         	<table class="table table-hover">
 				<?php makestatistics(); ?>
 		  	</table>
