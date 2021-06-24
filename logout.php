@@ -34,7 +34,6 @@ while ($row = oci_fetch_assoc($stmt)){
 		'DATEDUE' => $row['DATEDUE']
 	);
 	$rentalDate = array_push($rentalData,$data);
-	echo "123<br>";
 }
 
 for ($i = 0; $i < count($rentalData); $i++){
@@ -47,8 +46,6 @@ for ($i = 0; $i < count($rentalData); $i++){
 	$query = "insert into previousrental values(".$rentalData[$i]['ISBN'].",'".$rentalData[$i]['DATERENTED']."','".$rentalData[$i]['DATEDUE']."',".$_SESSION['cno'].")";
 	$stmt = oci_parse($conn, $query);
 	oci_execute($stmt);
-	echo $query."<br>";
-
 }
 
 session_destroy();
