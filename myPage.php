@@ -25,7 +25,12 @@ function lendingBookList(){
 		echo "<th>".$row['DATERENTED']."</th>";
 		echo "<th>".$row['DATEDUE']."</th>";
 		echo "<th>".$row['EXTTIMES']."</th>";
-		echo "<th><button class='btn btn-dark' onclick='renewEbook(".$row['ISBN'].",".$row['EXTTIMES'].")'>연장</button></th>";
+		if ($row['EXTTIMES'] == 0){
+			echo "<th><button class='btn btn-dark' onclick='renewEbook(".$row['ISBN'].")'>연장</button></th>";
+		}
+		else if ($row['EXTTIMES'] == 1){
+			echo "<th><button class='btn btn-dark' disabled>연장</button></th>";
+		}
 		echo "</tr>";
 	}
 	oci_free_statement($stmt);
