@@ -27,7 +27,7 @@ if ($_POST['mode'] == 1){
 
 else if ($_POST['mode'] == 2){
 	$isbn = $_POST['isbn'];
-	$query = "update EBOOK set CNO=${cno}, EXTTIMES=0, DATERENTED=TO_DATE(SYSDATE,'YYYY/MM/DD'), DATEDUE=TO_DATE(SYSDATE,'YYYY/MM/DD')+7 WHERE ISBN = ${isbn}";
+	$query = "update EBOOK set CNO=${cno}, EXTTIMES=0, DATERENTED=TO_DATE(SYSDATE,'YY/MM/DD'), DATEDUE=TO_DATE(SYSDATE,'YY/MM/DD')+7 WHERE ISBN = ${isbn}";
 	$stmt = oci_parse($conn, $query);
 	oci_execute($stmt);
 }

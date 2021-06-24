@@ -31,6 +31,7 @@ $row = oci_fetch_assoc($stmt);
 		출판사 : <?php echo $row['PUBLISHER']; ?><br><br>
 		출판연도 : <?php echo $row['YEAR']; ?><br><br>
 
+		<!-- 도서 저자 -->
 		<?php
 		$query = "select ISBN, AUTHOR from authors where isbn=".$isbn;
 
@@ -40,10 +41,10 @@ $row = oci_fetch_assoc($stmt);
 		while ($row = oci_fetch_assoc($stmt)) {
 			echo "저자 : ".$row['AUTHOR']."<br><br>";
 		}
-
 		oci_free_statement($stmt);
-		oci_close($conn); 
+		oci_close($conn);
 		?>
+		
 		<button onclick="window.close();">닫기</button>
 	</body>
 </html>

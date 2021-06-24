@@ -34,7 +34,6 @@ function makestatistics(){
 	}
 	echo "<tbody>";
 	$stmt = oci_parse($conn, $query);
-	$stmt = oci_parse($conn,$query);
 	oci_execute($stmt);
 	while ($row = oci_fetch_assoc($stmt)){
 		echo "<tr>";
@@ -45,7 +44,7 @@ function makestatistics(){
 	}
 	echo "</tbody>";
 	oci_free_statement($stmt);
-	oci_close($conn); 
+	oci_close($conn);
 }
 ?>
 

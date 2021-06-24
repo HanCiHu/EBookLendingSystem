@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if ((!isset($_SESSION['cno'])) || ($_SESSION['cno'] == -1)){
+if ((!isset($_SESSION['cno']))){
 	echo "<script>alert('잘못된 접근입니다.');</script>";
 	echo "<script>location.href = './signIn.html';</script>";
 }

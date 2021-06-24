@@ -39,11 +39,11 @@
 		}).done(function(data){
 			if (data == "OK"){
 				alert("도서 추가가 완료되었습니다.");
-				window.close();
+				opener.document.location.reload();
+				self.close();
 			}
 			else{
 				alert(data);
-
 				alert("Server Error");
 			}
 		});

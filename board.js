@@ -104,6 +104,9 @@ function logout(){
 		type:'post',
 		
 	}).done(function(data) {
+		if (data != ''){
+			alert(data);
+		}
 		location.href = './signIn.html';
 	});
 }
