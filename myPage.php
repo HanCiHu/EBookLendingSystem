@@ -24,9 +24,12 @@ function lendingBookList(){
 		echo "<th>".$row['YEAR']."</th>";
 		echo "<th>".$row['DATERENTED']."</th>";
 		echo "<th>".$row['DATEDUE']."</th>";
-		echo "<th><button class='btn btn-dark' onclick='renewEbook(".$row['ISBN'].")'>연장</button></th>";
+		echo "<th>".$row['EXTTIMES']."</th>";
+		echo "<th><button class='btn btn-dark' onclick='renewEbook(".$row['ISBN'].",".$row['EXTTIMES'].")'>연장</button></th>";
 		echo "</tr>";
 	}
+	oci_free_statement($stmt);
+	oci_close($conn);
 }
 
 function reservingBookList(){
@@ -52,7 +55,7 @@ function reservingBookList(){
 		echo "</tr>";
 	}
 	oci_free_statement($stmt);
-	oci_close($conn); 
+	oci_close($conn);
 }
 ?>
 
@@ -86,6 +89,7 @@ function reservingBookList(){
 						<th>출판연도</th>
         	 			<th>대출 날짜</th>
 						<th>반납 일자</th>
+						<th>반납 연장 횟수</th>
 						<th>반납 연장</th>
 					</tr>
 				</thead>

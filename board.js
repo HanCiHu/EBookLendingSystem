@@ -122,8 +122,47 @@ function EbookSort(order){
 }
 
 //반납 기간 연장 : myPage.php
-function renewEbook(){
-
+function renewEbook(isbn,exttimes){
+	//연장을 했는지 확인
+	if (exttimes == 0){
+		//예약이 되어있는지 확인
+		$.ajax({
+			url:'renewEbook.php',
+			type:'post',
+			data:{
+				mode : 1,
+				isbn : isbn
+			}
+		}).done(function(data){
+			if (data == "OK"){
+				let flag= confirm("반납 기간 연장이 가능합니다.\n연장하시겠습니까?");
+				if (flag){
+					$.ajax({
+						url:'renewEbook.php',
+						type:'post',
+						data :{
+							mode :2,
+							isbn : isbn
+						}
+					}).done(function(data){
+						if (data == "OK"){
+							alert("연장되었습니다.");
+							location.reload();
+						}
+						else{
+							alert("Server Error");
+						}
+					});
+				}
+			}
+			else if (data == "NO"){
+				alert("해당도서는 예약되어있어 연장이 불가능합니다.");
+			}
+		});
+	}
+	else{
+		alert("연장은 최대 한번만 가능합니다.");
+	}
 }
 
 //예약 취소 : myPage.php
